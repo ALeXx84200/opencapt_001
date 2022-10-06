@@ -1,0 +1,17 @@
+Récupération des fournisseurs
+Pour le moment, la seule manière de récupérer des fournisseurs dans Open-Capture est d'utiliser le fichier spécifique fourni :bin/src/referencial/default_referencial_supplier.ods. Il est possible d'utiliser un fichier CSV ou XLSX au lieu du fichier ODS. Toutes les colonnes nécessaires sont présentes, vous n'avez plus qu'à remplir les champs suivants : 
+Nom du fournisseur
+Numéro de SIRET
+Numéro de SIREN
+Numéro d'IBAN
+Numéro de TVA
+Adresse du fournisseur
+Typologie de document (À remplir à la main ou via un apprentissage de l'IA, sera utilisé pour les masques de positionnement)
+Contrôle de cohérence (true ou false. Si true, une vérification sera effectuée lors de la capture du pieds de page afin de vérifier les données)
+Ce fichier ODS/CSV/XLSX est fourni avec un fichier JSON :
+bin/src/referencial/default_referencial_supplier_index.json
+Ce dernier est tout simplement une table de correspondance entre le code d'Open-Capture et les colonnes du fichier ODS. Si vous avez un fichier de référentiels différents, c'est ce fichier JSON qu'il faudra modifier avant de lancer le script de récupération. 
+Après avoir rempli le fichier ODS/CSV/XLSX correctement, il ne vous reste plus qu'à lancer la commande suivante afin de remplir la base de données :
+python3 /var/www/html/opencapture/loadReferencial.py -c /var/www/html/opencapturesforinvoices/instance/config.ini
+Dans certains cas il peut être utile de rendre cette tâche automatique. Pour cela, nous allons utiliser les incron, permettant de lancer un script après un evenement système. Imaginons que le fichier du référentiel fournisseurs est déposé tous les jours à 10h dans le dossier /var/share/suppliers/ alors nous n'aurons qu'à rajouter dans l'incron la commande suivante : 
+/var/share/suppliers/ IN_CLOSE_WRITE,IN_MOVED_TO /var/www/html/opencapture/launch_referencial_load.s
