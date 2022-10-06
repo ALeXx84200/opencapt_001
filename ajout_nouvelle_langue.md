@@ -1,4 +1,4 @@
-Ajout d'une nouvelle langue
+nhbbygbukyhniuhjuAjout d'une nouvelle langue
 La gestion du multilingue est gérée par . Son intégration à Open-Capture est facilitée grâce au module . Passons maintenant à la procédure pour rajouter une nouvelle langue, en plus du français et de l'anglais, présent par défaut.
 Modification côté Python
 Le premier fichier à modifier est instance/lang.json que vous trouverez à l'aide de la commande suivante : 
